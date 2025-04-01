@@ -15,7 +15,7 @@ pipeline {
     steps {
         sh 'python3 --version'
         sh 'which python3'
-        sh 'pip list'
+        sh 'pip install pandas'
     }
 }
 
