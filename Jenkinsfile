@@ -12,15 +12,10 @@ pipeline {
 }
 
         stage('Train Model') {
-    steps {
-        sh '''
-        python3.9 -m venv venv
-        source venv/bin/activate
-        pip install -r requirements.txt
-        python3.9 train_model.py
-        '''
-    }
-}
+            steps {
+                sh 'python train_model.py'
+            }
+        }
 
         stage('Build Docker Image') {
             steps {
