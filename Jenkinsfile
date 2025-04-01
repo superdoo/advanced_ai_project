@@ -11,6 +11,15 @@ pipeline {
     }
 }
 
+        stage('Debug Python') {
+    steps {
+        sh 'python3 --version'
+        sh 'which python3'
+        sh 'pip list'
+    }
+}
+
+
         stage('Train Model') {
             steps {
                 sh 'python3 train_model.py'
