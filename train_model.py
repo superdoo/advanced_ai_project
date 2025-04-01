@@ -14,7 +14,7 @@ from db_connector import get_db_connection
 
 def train_model():
     conn = get_db_connection()
-    df = pd.read_sql("SELECT * FROM customer", conn)
+    df = pd.read_sql("SELECT * FROM customers", conn)
     conn.close()
     
     X = df[['age', 'income', 'account_balance']]
