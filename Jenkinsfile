@@ -1,34 +1,44 @@
-
 pipeline {
     agent any
     stages {
         stage('Checkout Code') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'githubuseraccesstoken', usernameVariable: 'GIT_USER', passwordVariable: 'GIT_PASS')]) {
-                sh 'rm -rf advanced_ai_project'
-                sh 'git clone https://$GIT_USER:$GIT_PASS@github.com/superdoo/advanced_ai_project.git'
-        }
-    }
-}
-        stage('Install Dependencies') {
-             steps {
-             sh 'pip3 install -r requirements.txt'
-                 }
+                    sh 'rm -rf advanced_ai_project'
+                    sh 'git clone https://$GIT_USER:$GIT_PASS@github.com/superdoo/advanced_ai_project.git'
+                }
             }
+        }
 
-        
-        
+        stage('Install Dependencies') {
+            steps {
+                script {
+                    // Create a virtual environment
+                    sh 'python3 -m venv venv'
+                    
+                    // Activate the virtual environment and install dependencies
+                    sh 'source venv/bin/activate && pip install -r advanced_ai_project/requirements.txt'
+                }
+            }
+        }
+
         stage('Check Python Version') {
             steps {
-        sh 'python3 --version'
-        sh 'pandas --version'
-        sh 'pwd'
-    }
-}
+                script {
+                    // Check Python version inside virtual environment
+                    sh 'source venv/bin/activate && python3 --version'
+                    sh 'source venv/bin/activate && pip show pandas'
+                    sh 'pwd'
+                }
+            }
+        }
 
         stage('Train Model') {
             steps {
-                sh 'python3 train_model.py'
+                script {
+                    // Train the model inside the virtual environment
+                    sh 'source venv/bin/activate && python3 advanced_ai_project/train_model.py'
+                }
             }
         }
 
@@ -37,6 +47,7 @@ pipeline {
                 sh 'docker build -t ai-pipeline .'
             }
         }
+
         stage('Run Docker Compose') {
             steps {
                 sh 'docker-compose up -d'
