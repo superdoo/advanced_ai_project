@@ -28,7 +28,7 @@ pipeline {
                 script {
                     sh 'ls -l'
                     // Train the model inside the virtual environment
-                    sh 'train_model.py'
+                    sh 'python3 train_model.py'
                 }
             }
         }
