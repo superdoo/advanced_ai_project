@@ -1,0 +1,17 @@
+# Data Processing & Database
+pandas==1.5.3
+psycopg2==2.9.3
+
+# Machine Learning
+scikit-learn==1.2.2
+joblib==1.2.0
+
+# FastAPI & Uvicorn (for real-time inference)
+fastapi==0.95.2
+uvicorn==0.23.1
+
+# Docker-related tools (for running in containers)
+docker==6.0.0
+
+# For plotting (if needed)
+matplotlib==3.7.1
