@@ -10,6 +10,12 @@ pipeline {
         }
     }
 }
+        stage('Check Python Version') {
+            steps {
+        sh 'python3 --version'
+        sh 'pwd'
+    }
+}
 
         stage('Train Model') {
             steps {
