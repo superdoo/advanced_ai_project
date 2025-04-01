@@ -5,7 +5,7 @@ pipeline {
         stage('Checkout Code') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'githubuseraccesstoken', usernameVariable: 'GIT_USER', passwordVariable: 'GIT_PASS')]) {
-                sh 'git clone https://$GIT_USER:$GIT_PASS@github.com/superdoo/ai_data_pipeline.git'
+                sh 'git clone https://$GIT_USER:$GIT_PASS@github.com/superdoo/advanced_ai_project.git'
         }
     }
 }
