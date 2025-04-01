@@ -26,6 +26,7 @@ pipeline {
         stage('Train Model') {
             steps {
                 script {
+                    sh 'ls -l'
                     // Train the model inside the virtual environment
                     sh 'train_model.py'
                 }
