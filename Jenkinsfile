@@ -11,21 +11,13 @@ pipeline {
     }
 }
 
-        stage('Debug Python') {
-    steps {
-        sh 'python3 --version'
-        sh 'which python3'
-        sh 'pip install pandas'
-    }
-}
-
-
         stage('Train Model') {
     steps {
         sh '''
         python3.9 -m venv venv
         source venv/bin/activate
         pip install -r requirements.txt
+        pip install pandas
         python3.9 train_model.py
         '''
     }
