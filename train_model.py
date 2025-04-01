@@ -3,7 +3,7 @@
 
 import pandas as pd
 import joblib
-import psycopg2-binary
+import psycopg2
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from db_connector import get_db_connection
