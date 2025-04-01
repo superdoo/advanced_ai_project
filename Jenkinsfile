@@ -17,7 +17,9 @@ pipeline {
             python3 -m venv venv
             . venv/bin/activate
             pip install --break-system-packages -r advanced_ai_project/requirements.txt
-           
+            pip3 install psycopg2-binary
+            python3 -c "import psycopg2; print('psycopg2 is installed')"
+
             '''
         }
     }
