@@ -1,4 +1,4 @@
-#!/home/mbarreras/ai_data_pipeline/venv/bin/python3
+#!/home/mbarreras/ai_data_pipeline/venv/bin/python3.9
 # -*- coding: utf-8 -*-
 import re
 import sys
