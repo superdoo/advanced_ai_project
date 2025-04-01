@@ -10,9 +10,18 @@ pipeline {
         }
     }
 }
+        stage('Install Dependencies') {
+             steps {
+             sh 'pip3 install -r requirements.txt'
+                 }
+            }
+
+        
+        
         stage('Check Python Version') {
             steps {
         sh 'python3 --version'
+        sh 'pandas --version'
         sh 'pwd'
     }
 }
