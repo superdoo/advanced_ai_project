@@ -4,9 +4,12 @@ pipeline {
     stages {
         stage('Checkout Code') {
             steps {
-                git 'https://github.com/yourusername/ai_data_pipeline.git'
-            }
+                withCredentials([usernamePassword(credentialsId: 'github-pat', usernameVariable: 'GIT_USER', passwordVariable: 'GIT_PASS')]) {
+                sh 'git clone https://$GIT_USER:$GIT_PASS@github.com/superdoo/ai_data_pipeline.git'
         }
+    }
+}
+
         stage('Train Model') {
             steps {
                 sh 'python train_model.py'
