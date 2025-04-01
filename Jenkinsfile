@@ -22,22 +22,12 @@ pipeline {
             }
         }
 
-        stage('Check Python Version') {
-            steps {
-                script {
-                    // Check Python version inside virtual environment
-                    sh '. venv/bin/activate && python3 --version'
-                    sh '. venv/bin/activate && pip show pandas'
-                    sh 'pwd'
-                }
-            }
-        }
 
         stage('Train Model') {
             steps {
                 script {
                     // Train the model inside the virtual environment
-                    sh '. venv/bin/activate && python3 advanced_ai_project/train_model.py'
+                    sh 'train_model.py'
                 }
             }
         }
