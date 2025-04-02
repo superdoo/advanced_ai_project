@@ -2,29 +2,29 @@ import os
 import subprocess
 import sys
 
-# Step 1: Create and activate virtual environment
 VENV_DIR = "venv"
 
+# Step 1: Create the virtual environment if it doesn't exist
 if not os.path.exists(VENV_DIR):
     print("Creating virtual environment...")
     subprocess.run([sys.executable, "-m", "venv", VENV_DIR])
 
-# Activate virtual environment
-activate_script = os.path.join(VENV_DIR, "bin", "activate_this.py")
-exec(open(activate_script).read(), {'__file__': activate_script})
+# Step 2: Use the correct way to activate virtual environment
+python_exec = os.path.join(VENV_DIR, "bin", "python")
+pip_exec = os.path.join(VENV_DIR, "bin", "pip")
 
-# Step 2: Install dependencies
+# Step 3: Install dependencies
 print("Installing dependencies...")
-subprocess.run([f"{VENV_DIR}/bin/pip", "install", "--break-system-packages", "pandas", "psycopg2", "matplotlib", "scikit-learn", "joblib"])
+subprocess.run([pip_exec, "install", "--break-system-packages", "-r", "advanced_ai_project/requirements.txt"])
 
-# Step 3: Import required libraries
+# Step 4: Import dependencies
 import pandas as pd
 import joblib
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 import psycopg2
 
-# Step 4: Define database connection
+# Step 5: Define database connection
 def get_db_connection():
     return psycopg2.connect(
         dbname="mbarreras_db",
@@ -34,7 +34,7 @@ def get_db_connection():
         port="5432"
     )
 
-# Step 5: Train the model
+# Step 6: Train the model
 def train_model():
     conn = get_db_connection()
     df = pd.read_sql("SELECT * FROM customer", conn)
