@@ -1,6 +1,7 @@
 import os
 import subprocess
 import sys
+import stat
 
 VENV_DIR = "venv"
 
@@ -9,13 +10,17 @@ if not os.path.exists(VENV_DIR):
     print("Creating virtual environment...")
     subprocess.run([sys.executable, "-m", "venv", VENV_DIR])
 
-# Step 2: Use the correct way to activate virtual environment
-python_exec = os.path.join(VENV_DIR, "bin", "python")
+# Step 2: Ensure pip has execute permissions
 pip_exec = os.path.join(VENV_DIR, "bin", "pip")
+python_exec = os.path.join(VENV_DIR, "bin", "python")
+
+# Fix permissions
+if os.path.exists(pip_exec):
+    os.chmod(pip_exec, stat.S_IXUSR | stat.S_IRUSR | stat.S_IWUSR)
 
 # Step 3: Install dependencies
 print("Installing dependencies...")
-subprocess.run([pip_exec, "install", "--break-system-packages", "-r", "advanced_ai_project/requirements.txt"])
+subprocess.run([python_exec, "-m", "pip", "install", "--break-system-packages", "-r", "advanced_ai_project/requirements.txt"])
 
 # Step 4: Import dependencies
 import pandas as pd
