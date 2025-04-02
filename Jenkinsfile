@@ -11,23 +11,33 @@ pipeline {
         }
 
         stage('Install Dependencies') {
-            steps {
-                sh '''
-                python3 -m venv venv
-                . venv/bin/activate
-                pip install --break-system-packages -r advanced_ai_project/requirements.txt
-                '''
-            }
+    steps {
+        script {
+            sh '''
+            python3 -m venv venv
+            . venv/bin/activate
+            pip install --break-system-packages -r advanced_ai_project/requirements.txt
+            python3 -m site  # Show the Python site packages being used
+            '''
         }
+    }
+}
 
-        stage('Train Model') {
-            steps {
-                sh '''
-                . venv/bin/activate
-                python3 train_model.py
-                '''
-            }
+stage('Train Model') {
+    steps {
+        script {
+            sh '''
+            # Activate the virtual environment
+            . venv/bin/activate
+            # Print Python version and paths for debugging
+            python3 --version
+            which python3
+            python3 train_model.py
+            '''
         }
+    }
+}
+
 
         stage('Build Docker Image') {
             steps {
