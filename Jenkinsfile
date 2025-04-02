@@ -10,23 +10,12 @@ pipeline {
             }
         }
 
-    stage('Setup and Train Model') {
-    steps {
-        script {
-            sh '''
-            # Create and activate the virtual environment
-            python3 -m venv venv
-            . venv/bin/activate
-
-            # Install dependencies
-            pip install --break-system-packages -r advanced_ai_project/requirements.txt
-
-            # Train the model
-            venv/bin/python3 advanced_ai_project/train_model.py
-            '''
+   stage('Train Model') {
+            steps {
+                sh 'python train_model.py'
+            }
         }
-    }
-}
+
 
 
 
