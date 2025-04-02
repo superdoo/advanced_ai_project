@@ -10,30 +10,32 @@ pipeline {
             }
         }
 
-stage('Install Dependencies') {
-    steps {
-        script {
-            sh '''
-            python3 -m venv venv
-            # Use bash to activate and install dependencies in the same shell session
-            bash -c ". venv/bin/activate && pip install --break-system-packages -r advanced_ai_project/requirements.txt"
-            bash -c ". venv/bin/activate && python3 -m site"  # Debug Python environment
-            '''
+        stage('Install Dependencies') {
+            steps {
+                script {
+                    sh '''
+                    # Install dependencies globally in the system Python
+                    pip install --break-system-packages -r advanced_ai_project/requirements.txt
+                    # Optionally, check installed packages for debugging
+                    pip list
+                    python3 --version
+                    '''
+                }
+            }
         }
-    }
-}
 
-stage('Train Model') {
-    steps {
-        script {
-            sh '''
-            # Activate virtual environment and run the training script in the same shell session
-            bash -c ". venv/bin/activate && python3 --version && which python3 && python3 train_model.py"
-            '''
+        stage('Train Model') {
+            steps {
+                script {
+                    sh '''
+                    # Ensure correct Python interpreter is being used
+                    python3 --version
+                    # Run the training script
+                    python3 advanced_ai_project/train_model.py
+                    '''
+                }
+            }
         }
-    }
-}
-
 
         stage('Build Docker Image') {
             steps {
