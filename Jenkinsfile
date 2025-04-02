@@ -11,34 +11,35 @@ pipeline {
         }
 
         stage('Install Dependencies') {
-            steps {
-                script {
-                    sh '''
-                    # Install dependencies globally in the system Python
-                    pip install --break-system-packages -r advanced_ai_project/requirements.txt
-                    # Optionally, check installed packages for debugging
-                    # Check if psycopg2 is installed
-                    pip show psycopg2
-                    # Optionally, list installed packages for debugging
-                    pip list
-                    python3 --version
-                    '''
-                }
-            }
+    steps {
+        script {
+            sh '''
+            # Create and activate the virtual environment
+            python3 -m venv venv
+            source venv/bin/activate
+            # Install dependencies
+            pip install --break-system-packages -r advanced_ai_project/requirements.txt
+            # Debug the Python environment
+            which python
+            which pip
+            pip list
+            '''
         }
+    }
+}
 
         stage('Train Model') {
-            steps {
-                script {
-                    sh '''
-                    # Ensure correct Python interpreter is being used
-                    python3 --version
-                    # Run the training script
-                    python3 advanced_ai_project/train_model.py
-                    '''
-                }
-            }
+    steps {
+        script {
+            sh '''
+            # Make sure to use the virtual environment's Python interpreter
+            source venv/bin/activate
+            venv/bin/python3 advanced_ai_project/train_model.py
+            '''
         }
+    }
+}
+
 
         stage('Build Docker Image') {
             steps {
