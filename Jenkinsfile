@@ -28,7 +28,7 @@ pipeline {
             steps {
                 script {
                     sh // Train the model inside the virtual environment
-                    sh . /path/to/venv/bin/activate && python train_model.py
+                   // sh . /path/to/venv/bin/activate && python train_model.py
 
                 }
             }
