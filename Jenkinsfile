@@ -29,7 +29,8 @@ pipeline {
                 script {
                     sh 'ls -l'
                     // Train the model inside the virtual environment
-                    sh 'python3 train_model.py'
+                    sh . /path/to/venv/bin/activate && python train_model.py
+
                 }
             }
         }
