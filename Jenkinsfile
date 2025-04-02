@@ -11,25 +11,21 @@ pipeline {
         }
 
         stage('Install Dependencies') {
-    steps {
-        script {
-            '''
-            python3 -m venv venv
-            . venv/bin/activate
-            pip install --break-system-packages -r advanced_ai_project/requirements.txt
-        
-            '''
+            steps {
+                sh '''
+                python3 -m venv venv
+                . venv/bin/activate
+                pip install --break-system-packages -r advanced_ai_project/requirements.txt
+                '''
+            }
         }
-    }
-}
-
 
         stage('Train Model') {
             steps {
                 sh '''
-               . venv/bin/activate
-               python3 train_model.py'
-               '''
+                . venv/bin/activate
+                python3 train_model.py
+                '''
             }
         }
 
@@ -44,6 +40,5 @@ pipeline {
                 sh 'docker-compose up -d'
             }
         }
-    
     }
 }
