@@ -9,56 +9,30 @@ pipeline {
                 }
             }
         }
-                stage('Remove Non-Python 3 Versions') {
-            steps {
-                script {
-                    // List all Python binaries installed
-                    sh '''
-                    python_versions=$(ls /usr/bin/python* | grep -v "python3")
 
-                    for version in $python_versions; do
-                        echo "Removing $version..."
-                        echo "B133eras" | sudo -S apt-get remove --purge -y $version
-                    done
-
-                    # Confirm remaining Python versions
-                    python3 --version
-                    '''
-                }
-            }
-        }
-
-
-
-        stage('Install Dependencies') {
+    stage('Install Dependencies and Train Model') {
     steps {
         script {
             sh '''
             # Create and activate the virtual environment
             python3 -m venv venv
             . venv/bin/activate
+
             # Install dependencies
             pip install --break-system-packages -r advanced_ai_project/requirements.txt
+            
             # Debug the Python environment
             which python
             which pip
             pip list
-            '''
-        }
-    }
-}
-
-        stage('Train Model') {
-    steps {
-        script {
-            sh '''
-            # Make sure to use the virtual environment's Python interpreter
-            . venv/bin/activate
+            
+            # Train the model using the virtual environment's Python interpreter
             venv/bin/python3 advanced_ai_project/train_model.py
             '''
         }
     }
 }
+
 
 
         stage('Build Docker Image') {
