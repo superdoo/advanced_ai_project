@@ -1,6 +1,5 @@
 # Data Processing & Database
 pandas
-psycopg2
 psycopg2-binary
 # Machine Learning
 scikit-learn
