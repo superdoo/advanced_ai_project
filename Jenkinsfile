@@ -21,7 +21,7 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t ai-pipeline .'
+                sh 'sudo docker build -t ai-pipeline .'
             }
         }
 
