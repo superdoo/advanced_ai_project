@@ -10,7 +10,7 @@ pipeline {
             }
         }
 
-    stage('Install Dependencies and Train Model') {
+    stage('Setup and Train Model') {
     steps {
         script {
             sh '''
@@ -20,13 +20,8 @@ pipeline {
 
             # Install dependencies
             pip install --break-system-packages -r advanced_ai_project/requirements.txt
-            
-            # Debug the Python environment
-            which python
-            which pip
-            pip list
-            
-            # Train the model using the virtual environment's Python interpreter
+
+            # Train the model
             venv/bin/python3 advanced_ai_project/train_model.py
             '''
         }
