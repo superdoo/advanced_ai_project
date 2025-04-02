@@ -10,14 +10,14 @@ pipeline {
             }
         }
 
-        stage('Install Dependencies') {
+stage('Install Dependencies') {
     steps {
         script {
             sh '''
             python3 -m venv venv
-            . venv/bin/activate
-            pip install --break-system-packages -r advanced_ai_project/requirements.txt
-            python3 -m site  # Show the Python site packages being used
+            # Use bash to activate and install dependencies in the same shell session
+            bash -c ". venv/bin/activate && pip install --break-system-packages -r advanced_ai_project/requirements.txt"
+            bash -c ". venv/bin/activate && python3 -m site"  # Debug Python environment
             '''
         }
     }
@@ -27,12 +27,8 @@ stage('Train Model') {
     steps {
         script {
             sh '''
-            # Activate the virtual environment
-            . venv/bin/activate
-            # Print Python version and paths for debugging
-            python3 --version
-            which python3
-            python3 train_model.py
+            # Activate virtual environment and run the training script in the same shell session
+            bash -c ". venv/bin/activate && python3 --version && which python3 && python3 train_model.py"
             '''
         }
     }

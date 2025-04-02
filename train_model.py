@@ -1,7 +1,7 @@
 
 #Trains a logistic regression model for churn prediction.
 
-import psycopg2
+
 import pandas as pd
 import joblib
 import psycopg2
