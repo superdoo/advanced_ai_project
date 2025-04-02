@@ -1,6 +1,7 @@
 # Data Processing & Database
 pandas
-psycopg2-binary
+psycopg2>=2.9.0
+
 # Machine Learning
 scikit-learn
 joblib

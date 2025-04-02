@@ -17,6 +17,9 @@ pipeline {
                     # Install dependencies globally in the system Python
                     pip install --break-system-packages -r advanced_ai_project/requirements.txt
                     # Optionally, check installed packages for debugging
+                    # Check if psycopg2 is installed
+                    pip show psycopg2
+                    # Optionally, list installed packages for debugging
                     pip list
                     python3 --version
                     '''
