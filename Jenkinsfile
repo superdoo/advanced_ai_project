@@ -17,7 +17,7 @@ pipeline {
             python3 -m venv venv
             . venv/bin/activate
             pip install --break-system-packages -r advanced_ai_project/requirements.txt
-            pip list
+        
             '''
         }
     }
@@ -27,14 +27,13 @@ pipeline {
         stage('Train Model') {
             steps {
                 script {
-                    sh 'ls -l'
-                    // Train the model inside the virtual environment
+                    sh // Train the model inside the virtual environment
                     sh . /path/to/venv/bin/activate && python train_model.py
 
                 }
             }
         }
-
+/*
         stage('Build Docker Image') {
             steps {
                 sh 'docker build -t ai-pipeline .'
@@ -46,5 +45,6 @@ pipeline {
                 sh 'docker-compose up -d'
             }
         }
+    */    
     }
 }
