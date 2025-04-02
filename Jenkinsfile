@@ -27,13 +27,14 @@ pipeline {
         stage('Train Model') {
             steps {
                 script {
-                    sh // Train the model inside the virtual environment
-                   // sh . /path/to/venv/bin/activate && python train_model.py
+
+                    sh echo // Train the model inside the virtual environment
+                    sh . /path/to/venv/bin/activate && python train_model.py
 
                 }
             }
         }
-/*
+
         stage('Build Docker Image') {
             steps {
                 sh 'docker build -t ai-pipeline .'
@@ -45,6 +46,6 @@ pipeline {
                 sh 'docker-compose up -d'
             }
         }
-    */    
+    
     }
 }
