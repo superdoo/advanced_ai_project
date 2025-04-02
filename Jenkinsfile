@@ -9,6 +9,29 @@ pipeline {
                 }
             }
         }
+                stage('Remove Non-Python 3 Versions') {
+            steps {
+                script {
+                    // List all Python versions installed and remove non-Python 3 versions
+                    sh '''
+                    # List all Python binaries installed
+                    python_versions=$(ls /usr/bin/python* | grep -v "python3")
+
+                    # Remove all non-Python 3 versions
+                    for version in $python_versions; do
+                        echo "Removing $version..."
+                        sudo apt-get remove --purge -y $version
+                    done
+
+                    # Confirm remaining Python versions
+                    echo "Remaining Python versions:"
+                    python3 --version
+                    '''
+                }
+            }
+        }
+
+
 
         stage('Install Dependencies') {
     steps {
