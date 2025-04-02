@@ -16,7 +16,7 @@ pipeline {
             sh '''
             # Create and activate the virtual environment
             python3 -m venv venv
-            source venv/bin/activate
+            . venv/bin/activate
             # Install dependencies
             pip install --break-system-packages -r advanced_ai_project/requirements.txt
             # Debug the Python environment
@@ -33,7 +33,7 @@ pipeline {
         script {
             sh '''
             # Make sure to use the virtual environment's Python interpreter
-            source venv/bin/activate
+            . venv/bin/activate
             venv/bin/python3 advanced_ai_project/train_model.py
             '''
         }
