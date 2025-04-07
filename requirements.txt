@@ -1,0 +1,17 @@
+# Data Processing & Database
+pandas
+psycopg2>=2.9.0
+
+# Machine Learning
+scikit-learn
+joblib
+
+# FastAPI & Uvicorn (for real-time inference)
+fastapi
+uvicorn
+
+# Docker-related tools (for running in containers)
+docker
+
+# For plotting (if needed)
+matplotlib
